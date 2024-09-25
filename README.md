@@ -18,5 +18,6 @@ Any player who has died in the current round will be revived when a living playe
 The instant revival can be jarring.\
 A message should appear on each dead player's screen with a countdown before they are revived.
 
-An option for adjusting the countdown time could also be added.\At the end of the countdown, it could check if at least one player is still alive.\
+An option for adjusting the countdown time could also be added.\
+At the end of the countdown, it could check if at least one player is still alive.\
 This would prevent a player from rushing to pick up a key to revive any dead players and then dying themselves.
