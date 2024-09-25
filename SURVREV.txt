@@ -1,0 +1,113 @@
+#library "SURVREV"
+#include "zcommon.acs"
+
+#define MAXPLAYERS 64
+
+bool rev_hasBlueCard=false;
+bool rev_hasRedCard=false;
+bool rev_hasYellowCard=false;
+bool rev_hasBlueSkull=false;
+bool rev_hasRedSkull=false;
+bool rev_hasYellowSkull=false;
+
+//bool rev_debug_hasShotgun=false;
+
+function void respawnDead (void)
+{
+	// Respawn every single player that is dead!
+	for (int i = 0; i < MAXPLAYERS; i++)
+	{
+		if (PlayerIsSpectator(i) == 2)
+		{
+			SetDeadSpectator(i, 0);
+		}
+	}
+}
+
+script "rev_CheckPickup" ENTER NET
+{
+	// While this player has entered the game...
+	while (TRUE) 
+	{
+		// If this player is alive and well...
+		if (PlayerIsSpectator(PlayerNumber()) == 0)  {
+			// Check if the player has picked up a DEBUG shotgun
+			//if (rev_debug_hasShotgun == false)
+			//{
+			//	if (CheckInventory("Shotgun"))
+			//	{
+			//		rev_debug_hasShotgun=true;
+			//		respawnDead();
+			//	}
+			//}
+			// Check if the player has picked up a Blue Card
+			if (rev_hasBlueCard == false)
+			{
+				if (CheckInventory("BlueCard"))
+				{
+					rev_hasBlueCard=true;
+					respawnDead();
+				}
+			}
+			// Check if the player has picked up a Red Card
+			if ( rev_hasRedCard == false)
+			{
+				if (CheckInventory("RedCard"))
+				{
+					rev_hasRedCard=true;
+					respawnDead();
+				}
+			}
+			// Check if the player has picked up a Yellow Card
+			if ( rev_hasYellowCard == false)
+			{
+				if (CheckInventory("YellowCard"))
+				{
+					rev_hasYellowCard=true;
+					respawnDead();
+				}
+			}
+			// Check if the player has picked up a Blue Skull
+			if ( rev_hasBlueSkull == false)
+			{
+				if (CheckInventory("BlueSkull"))
+				{
+					rev_hasBlueSkull=true;
+					respawnDead();
+				}
+			}
+			// Check if the player has picked up a Red Skull
+			if ( rev_hasRedSkull == false)
+			{
+				if (CheckInventory("RedSkull"))
+				{
+					rev_hasRedSkull=true;
+					respawnDead();
+				}
+			}
+			// Check if the player has picked up a Yellow Skull
+			if ( rev_hasYellowSkull == false)
+			{
+				if (CheckInventory("YellowSkull"))
+				{
+					rev_hasYellowSkull=true;
+					respawnDead();
+				}
+			}
+		}
+		Delay(35);
+	}
+}
+
+script "rev_Reset" OPEN NET
+{
+	// In Survival, this is ran every new round
+	rev_hasBlueCard=false;
+	rev_hasRedCard=false;
+	rev_hasYellowCard=false;
+	rev_hasBlueSkull=false;
+	rev_hasRedSkull=false;
+	rev_hasYellowSkull=false;
+	
+	//rev_debug_hasShotgun=false;
+}
