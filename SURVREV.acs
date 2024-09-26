@@ -1,14 +1,21 @@
 #library "SURVREV"
 #include "zcommon.acs"
 
+// Constants
+#define HUD_X_POSITION 0.5
+#define HUD_Y_POSITION 0.45
+#define HUD_HOLD_TIME 3.0 // Hold time in seconds
 #define MAXPLAYERS 64
+#define HUD_MSG_PRE ""
+#define HUD_MSG_POST_PLURAL " allies can still revive you!"
+#define HUD_MSG_POST_SINGULAR " ally can still revive you!"
 
-bool rev_hasBlueCard=false;
-bool rev_hasRedCard=false;
-bool rev_hasYellowCard=false;
-bool rev_hasBlueSkull=false;
-bool rev_hasRedSkull=false;
-bool rev_hasYellowSkull=false;
+bool rev_hasBlueCard = false;
+bool rev_hasRedCard = false;
+bool rev_hasYellowCard = false;
+bool rev_hasBlueSkull = false;
+bool rev_hasRedSkull = false;
+bool rev_hasYellowSkull = false;
 
 //bool rev_debug_hasShotgun=false;
 
@@ -110,4 +117,27 @@ script "rev_Reset" OPEN NET
 	rev_hasYellowSkull=false;
 	
 	//rev_debug_hasShotgun=false;
+}
+
+script "rev_Death" DEATH CLIENTSIDE
+{
+	Delay(35);
+	
+	int aliveCount=0;
+	for (int i = 0; i < MAXPLAYERS; ++i)
+	{
+		if (i != PlayerNumber() && PlayerInGame(i))
+			++aliveCount;
+	}
+	
+	if (aliveCount > 0)
+	{
+		SetFont("BIGFONT");
+        if (aliveCount == 1)
+            HudMessage(s:HUD_MSG_PRE, d:aliveCount, s:HUD_MSG_POST_SINGULAR;
+                HUDMSG_FADEOUT, 1, CR_YELLOW, HUD_X_POSITION, HUD_Y_POSITION, HUD_HOLD_TIME, 1.0);
+        else
+            HudMessage(s:HUD_MSG_PRE, d:aliveCount, s:HUD_MSG_POST_PLURAL;
+                HUDMSG_FADEOUT, 1, CR_YELLOW, HUD_X_POSITION, HUD_Y_POSITION, HUD_HOLD_TIME, 1.0);
+	}
 }

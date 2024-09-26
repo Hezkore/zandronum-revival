@@ -10,13 +10,13 @@ Any player who has died in the current round will be revived when a living playe
 ## Installation
 
 ### Via release
-1. [Download](https://github.com/Hezkore/zandronum-revival/releases) and place `revival.wad` to your Zandronum directory
+1. [Download](https://github.com/Hezkore/zandronum-revival/releases) and place `revival.wad` in your Zandronum directory
 1. Load the mod using the `-file revival.wad` command line argument
 2. Play Survival like normal
 
 ### From source
 1. Clone repo `git clone https://github.com/Hezkore/zandronum-revival.git`
-2. Compile `SURVREV.txt` into `SURVREV.o` using [ACC](https://www.zdoom.org/downloads)
+2. Compile `SURVREV.acs` into `SURVREV.o` using [ACC](https://www.zdoom.org/downloads)
 3. Create `revival.wad` WAD with [SLADE](https://slade.mancubus.net)
 4. Place `SURVREV.o` and `LOADACS.txt` in WAD
 
